@@ -107,8 +107,9 @@ bool makesocket::close_program()
     if(close(server_socket)!=0)
     {
         perror("close()");
+        return false;
     }
-    return false;
+    return true;
 }
 const int makesocket::create_server_socket(sa_family_t &ipversion,int &protocol)
 {
@@ -149,14 +150,3 @@ makesocket::~makesocket()
         close(server_socket);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
