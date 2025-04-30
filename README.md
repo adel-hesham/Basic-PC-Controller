@@ -6,6 +6,9 @@ This project is a basic **PC control server** that allows a remote client to sen
 
 The server supports command recognition using regular expressions and keyword parsing to trigger specific actions.
 
+### Used server with android phone:
+https://play.google.com/store/apps/details?id=tcpudpserverclient.steffenrvs.tcpudpserverclient&hl=en
+
 ---
 
 ## ✅ Features & Controls
