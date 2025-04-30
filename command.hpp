@@ -9,7 +9,7 @@ class control
 public:
     bool seen_all_gmails();
 
-    void shutdown();
+    bool shutdown();
     
     bool cancel_shutdown();
 
