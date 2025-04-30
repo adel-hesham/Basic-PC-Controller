@@ -82,6 +82,14 @@ Here are some of the enhancements planned for the future:
 - 📦 Add more controls (e.g., file transfer, media control, system monitoring).
 
 
+## To Compile 
+
+g++ server.cpp command.cpp main.cpp -o server
+
+## To Run
+
+./server
+
 ---
 
 ## 👤 Author
