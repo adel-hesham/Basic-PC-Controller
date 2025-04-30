@@ -48,12 +48,14 @@ bool control::seen_all_gmails()
         return true;
     }
 }
-void control::shutdown()
+bool control::shutdown()
 {
     if(system("sudo shutdown -h now")!=0)
     {
         perror("shutdown failed");
+        return false;
     }
+    return true;
 }
 bool control::cancel_shutdown()
 {
@@ -197,5 +199,6 @@ std::string control::battery_info()
     return ss.str();
 
 }
+
 
 
