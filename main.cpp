@@ -60,10 +60,16 @@ int main()
 
             else if(std::regex_match(s.buffer.c_str(),shutdown_now)==true)
             {
-                std::cout<<"power of"<<std::endl;
-                s.capture<<"power of"<<std::endl;
-                s.sendout(s.capture.str());
-                c.shutdown();
+                if(c.shutdown())
+                {
+                    std::cout<<"power off"<<std::endl;
+                    s.capture<<"power off"<<std::endl;
+                    s.sendout(s.capture.str());
+                }
+                else
+                {
+                    continue;
+                }
             }
             else if(s.buffer.find("cancel shutdown")!=std::string::npos)
             {
@@ -73,6 +79,10 @@ int main()
                     s.capture<<"cancel scheduled shutdown"<<std::endl;
                     s.sendout(s.capture.str());
                 }
+                else
+                {
+                    continue;
+                }
             }
             else if(std::regex_match(s.buffer.c_str(),shutdown_intime)==true)
             {
@@ -80,7 +90,12 @@ int main()
                 {
                     std::cout<<"the OS will shut down in "<<s.buffer.substr(15)<<" minutes"<<std::endl;
                     s.capture<<"the OS will shut down in "<<s.buffer.substr(15)<<" minutes"<<std::endl;
-                } 
+                    s.sendout(s.capture.str());
+                }
+                else
+                {
+                    continue;
+                }
             }
             else if(std::regex_match(s.buffer.c_str(),shutdown_inclock)==true)
             {
@@ -88,6 +103,11 @@ int main()
                 {
                     std::cout<<"the OS will shut down at "<<s.buffer.substr(12)<<" o'clock"<<std::endl;
                     s.capture<<"the OS will shut down at "<<s.buffer.substr(12)<<" o'clock"<<std::endl;
+                    s.sendout(s.capture.str());
+                }
+                else
+                {
+                    continue;
                 }
             }
             else if(s.buffer.find("seen emails")!=std::string::npos)
@@ -100,6 +120,10 @@ int main()
                     s.capture<<"Done!"<<std::endl;
                     s.sendout(s.capture.str());
                 }
+                else
+                {
+                    continue;
+                }
                 
 
             }
@@ -108,50 +132,83 @@ int main()
                 s.capture<<"closing..."<<std::endl;
                 s.sendout(s.capture.str());
                 state=s.close_program();
-                break;
-                
-                    
+                if(state)
+                {
+                    break;
+                }
+                else
+                {
+                    continue;
+                }      
             }
             else if(s.buffer.find("open whatsapp")!=std::string::npos)
             {
                 if(c.open_whatsapp())
                 {
                     s.capture<<"Done!"<<std::endl;
+                    s.sendout(s.capture.str());
                 }
+                else
+                {
+                    continue;
+                }      
+
             }
             else if(s.buffer.find("open tilix")!=std::string::npos)
             {
                 if(c.open_tilix())
                 {
                     s.capture<<"Done!"<<std::endl;
+                    s.sendout(s.capture.str());
                 }
+                else
+                {
+                    continue;
+                }      
             }
             else if(s.buffer.find("open edge")!=std::string::npos)
             {
                 if(c.open_edge())
                 {
                     s.capture<<"Done!"<<std::endl;
+                    s.sendout(s.capture.str());
                 }
+                else
+                {
+                    continue;
+                }      
             }
             else if(s.buffer.find("open code")!=std::string::npos)
             {
                 if(c.open_code())
                 {
                     s.capture<<"Done!"<<std::endl;
+                    s.sendout(s.capture.str());
                 }
+                else
+                {
+                    continue;
+                }      
             }
             else if(std::regex_match(s.buffer.c_str(),search_web)==true)
             {
                 if(c.search_web(s.buffer.substr(11)))
                 {
                     s.capture<<"Done!"<<std::endl;
+                    s.sendout(s.capture.str());
                 }
+                else
+                {
+                    continue;
+                }      
             }
             else if(s.buffer.find("battery info")!=std::string::npos)
             {
-                    c.battery_info();
-                    s.capture<<" Done!"<<std::endl;  
+                c.battery_info();
+                s.capture<<" Done!"<<std::endl;  
+                s.sendout(s.capture.str());
             }
+                      
             else
             {
                 std::cout<<"invalid pattern try again"<<std::endl;
@@ -164,7 +221,7 @@ int main()
             s.buffer.clear();
 
         }
-        if(state==false)
+        if(state)
         {
             s.capture<<"bye bye!";
             s.sendout(s.capture.str());
