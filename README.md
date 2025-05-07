@@ -11,6 +11,8 @@ https://play.google.com/store/apps/details?id=tcpudpserverclient.steffenrvs.tcpu
 
 ---
 
+⚠️ **Note**: The server uses case-insensitive pattern matching for commands.
+
 ## ✅ Features & Controls
 
 Here are the main control features the server currently supports:
@@ -35,42 +37,57 @@ This feature is powered by a **Python script** that uses `pyautogui` and image r
 This script is triggered remotely by the command `seen emails`.
 
 ---
+### 🧾 3. Send terminal commands and receive their live output.
 
-### 🌐 3. Web Search
+-  send a terminal command ad you will receive the output
+
+
+### 🌐 4. Web Search
 
 - `search web:<query>`: Opens the browser and searches Google for the specified query.
 
 ---
 
-### ⚙️ 4. Application Launchers
+### ⚙️ 5. Application Launchers
 
 - `open whatsapp`: Opens the installed WhatsApp desktop app.
 - `open tilix`: Launches the Tilix terminal.
-- `open edge`: Opens Microsoft Edge browser.
+- `open browser`: Opens the default browser.
 - `open code`: Launches Visual Studio Code.
+- `open terminal` : Opens gnome-terminal.
+## Open websites like:
+- `open youtube`
+- `open github`
+- `open linkedin`
+- `open facebook`
 
 ---
 
-### 🔋 5. Battery Info
+### 🔋 6. Battery Info
 
 - `battery info`: Returns basic battery status information using Linux system files or `upower`.
 
 ---
 
-### ❌ 6. Close Server
+### ❌ 7. Close Server
 
-- `close`: Disconnects the client and optionally terminates the server loop.
+- `close`: Disconnects the client and optionally terminates the server loop and safely closes the used resources like the socket..
 
 ---
+
+### 🛡 8 Signal Handling
+The project includes a signal handler module to handle safe exits and safely free the resources (RAII) on system signals:
+
+SIGINT (Ctrl+C)
+
+SIGTERM (kill command)
 
 ## ⚠️ Limitations & Issues
 
 This is an early version with some known limitations:
 
-- ❌ **Single Client Only**: The server can only handle one client at a time.
 - 🔓 **No Security**: There is no encryption, authentication, or authorization mechanism.
 - 🔑 **Manual Sudo Password**: For shutdown commands, the user must manually enter their sudo password on the host PC.
-- 🔁 **Too Many Else-Ifs**: The code uses many `else if` statements for command dispatch, which is not scalable or maintainable for larger systems.
 
 ---
 
@@ -78,16 +95,14 @@ This is an early version with some known limitations:
 
 Here are some of the enhancements planned for the future:
 
-- 🔐 Add multi-user support with authentication (e.g., username/password or tokens).
 - 🔒 Secure communication over the network
 - ✅ Implement password-less `sudo` with proper security considerations.
-- 💡 Refactor command handling to use a dispatch map (e.g., `std::map<std::string, std::function<void()>>`) instead of long chains of conditionals.
 - 📦 Add more controls (e.g., file transfer, media control, system monitoring).
 
 
 ## To Compile 
 
-g++ server.cpp command.cpp main.cpp -o server
+g++ server.cpp command.cpp main.cpp signal_handler.cpp -o server
 
 ## To Run
 
@@ -98,9 +113,8 @@ g++ server.cpp command.cpp main.cpp -o server
 ## 👤 Author
 
 Eng/Adel Elnimr  
-Email: adelelnimr32@gmail.com  
+Email: adelelnimr32@gmail.com
+linkedin: https://www.linkedin.com/in/adel-elnimr-0552ba225/
 GitHub: adel-hesham
 
 ---
-
-
